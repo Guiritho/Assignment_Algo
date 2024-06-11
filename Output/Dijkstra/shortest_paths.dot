@@ -1,0 +1,21 @@
+graph shortest_paths {
+	S -- B [label="225"];
+	P -- C [label="433"];
+	H -- D [label="345"];
+	G -- E [label="406"];
+	S -- F [label="362"];
+	A -- G [label="367"];
+	S -- H [label="250"];
+	N -- I [label="587"];
+	G -- J [label="480"];
+	E -- K [label="226"];
+	N -- L [label="194"];
+	E -- M [label="211"];
+	A -- N [label="321"];
+	A -- O [label="351"];
+	N -- P [label="236"];
+	O -- Q [label="493"];
+	E -- R [label="342"];
+	A -- S [label="517"];
+	G -- T [label="635"];
+}

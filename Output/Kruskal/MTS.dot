@@ -1,0 +1,21 @@
+graph MST {
+	F -- T [label="138"];
+	T -- C [label="163"];
+	N -- L [label="194"];
+	M -- E [label="211"];
+	D -- K [label="213"];
+	K -- F [label="222"];
+	B -- S [label="225"];
+	K -- E [label="226"];
+	N -- P [label="236"];
+	H -- S [label="250"];
+	L -- G [label="275"];
+	T -- Q [label="309"];
+	D -- J [label="313"];
+	I -- Q [label="321"];
+	A -- N [label="321"];
+	S -- L [label="327"];
+	E -- L [label="338"];
+	E -- R [label="342"];
+	A -- O [label="351"];
+}
