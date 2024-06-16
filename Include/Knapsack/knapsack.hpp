@@ -10,8 +10,12 @@
 
 using namespace std;
 
-vector<Star> Knapsack(vector<Star>& stars, int capacity);
+vector<vector<int>> generate2DArray(vector<Star> stars, int capacity);
+
+vector<Star> Knapsack(vector<Star> stars, vector<vector<int>> dp, int capacity);
 
 void CreateTxtFileChosenStars(vector<Star>& chosenStars, string filename);
+
+void CreateCSVFileMatrix(vector<vector<int>>& dp, string filename);
 
 #endif //KNAPSACK_HPP

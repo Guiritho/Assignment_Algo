@@ -17,6 +17,8 @@ struct Star
 	int profit;
 };
 
+std::vector<int> CreateNumbers(long long seed, std::vector<int> NumberToAvoid);
+
 void generateDatasetWithSeed(std::vector<Star>& stars, std::vector<std::pair<Star, Star>>& routes, long long seed);
 
 void writeDatasetToFile(const std::vector<Star>& stars, const std::vector<std::pair<Star, Star>>& routes, std::string filename);

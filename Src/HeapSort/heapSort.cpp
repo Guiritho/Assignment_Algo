@@ -4,21 +4,22 @@
 #include <sstream>
 #include <string>
 #include <cstdio>
+#include <stdexcept>
 
 using namespace std;
 
 template <typename T>
-class PriorityQueue 
+class PriorityQueue
 {
 	vector<T> A;
 	
-	void heapify_enqueue(int index) // used in heapify enqueue.
+	void heapify_enqueue(size_t index) // used in heapify enqueue.
 	{
 		if (index == 0) // if already at root.
 			return;
 
 		// parent index
-		int p_index = (index-1)/2;
+		size_t p_index = (index-1)/2;
 
 		// swap if parent is smaller
 		if (A[p_index] < A[index])
@@ -31,7 +32,7 @@ class PriorityQueue
 
 	void heapify_dequeue(int index)
 	{
-		int greatest = index; // max index
+		size_t greatest = index; // max index
 
 		// left child index
 		size_t left_c = 2*index+1;
@@ -49,8 +50,9 @@ class PriorityQueue
 			greatest = right_c;
 		}
 
-		if (greatest != index) {
-			std::swap(A[index], A[greatest]);
+		if (greatest != index)
+		{
+			swap(A[index], A[greatest]);
 			heapify_dequeue(greatest); // recursion
 		}
 	}
@@ -64,27 +66,31 @@ class PriorityQueue
 
 	T dequeue()
 	{
+		if(A.empty()) 
+		{
+			throw out_of_range("Heap is empty");
+		}
 		T removed_element = A[0];
 		A[0] = A[A.size()-1];
 		A.pop_back();
-		heapify_dequeue(0); // start at root.
-		return removed_element; 
+		if(!A.empty())
+		{
+			heapify_dequeue(0);  // 0 is a valid size_t value
+		}
+		return removed_element;
 	}
 
-	int size() 
+	size_t size() 
 	{
 		return A.size();
 	}
 
- 	void print() 
-	{
- 		for(int i = 0; i < A.size(); i++)
- 			cout << A[i] << " ";
-		cout << endl;
- 	}
-
 	int get(int index)
 	{
+		if (index >= A.size())
+		{
+			throw out_of_range("Index out of range");
+		}
 		return A.at(index);
 	}
 };
@@ -99,12 +105,19 @@ PriorityQueue<int> CreateHeapFromDatabase(const string& filename)
 		string line;
 		while(getline(file, line))
 		{
-			if (!line.empty() && line.back() == '\n')
+			if(!line.empty() && line.back() == '\n')
 			{
-				line = line.substr(0, line.size() - 1);
+				line.pop_back();
 			}
-			int num = stoi(line);
-			result.enqueue(num);
+			try
+			{
+				int num = stoi(line);
+				result.enqueue(num);
+			}
+			catch(const invalid_argument&)
+			{
+				cerr << "Invalid number format: " << line << endl;
+			}
 		}
 		file.close();
 	}
@@ -119,9 +132,9 @@ void writeDatasetToFile(PriorityQueue<int> heap, const string& filename)
 {
 	ofstream file(filename);
 
-	if (file.is_open())
+	if(file.is_open())
 	{
-		for(int i = 0; i < heap.size(); i++)
+		for(size_t i = 0; i < heap.size(); i++)
 		{
 			file << heap.get(i) << endl;
 		}

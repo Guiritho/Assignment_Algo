@@ -1,7 +1,8 @@
-A Weight: 172 Profit: 361
-E Weight: 6 Profit: 354
-J Weight: 132 Profit: 395
-M Weight: 174 Profit: 298
-O Weight: 36 Profit: 280
-P Weight: 43 Profit: 371
-R Weight: 230 Profit: 361
+B Weight: 6 Profit: 170
+C Weight: 16 Profit: 103
+I Weight: 13 Profit: 406
+J Weight: 113 Profit: 440
+K Weight: 64 Profit: 430
+P Weight: 161 Profit: 374
+Q Weight: 344 Profit: 430
+S Weight: 73 Profit: 360

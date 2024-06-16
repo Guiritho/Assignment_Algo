@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 #include <cstdio>
+#include <stdexcept>
 
 using namespace std;
 
@@ -17,12 +18,19 @@ vector<int> CreateArrayFromDatabase(const string& filename)
 		string line;
 		while(getline(file, line))
 		{
-			if (!line.empty() && line.back() == '\n')
+			try
 			{
-				line = line.substr(0, line.size() - 1);
+				if(!line.empty() && line.back() == '\n') 
+				{
+					line.pop_back();
+				}
+				int num = stoi(line);
+				result.push_back(num);
 			}
-			int num = stoi(line);
-			result.push_back(num);
+			catch(const invalid_argument&) //Added exception handling
+			{
+				cerr << "Invalid number format: " << line << endl;
+			}
 		}
 		file.close();
 	}
@@ -37,11 +45,11 @@ void writeDatasetToFile(vector<int> array, const std::string& filename)
 {
 	ofstream file(filename);
 
-	if (file.is_open())
+	if(file.is_open())
 	{
-		for(size_t i = 0; i < array.size(); i++)
+		for(const auto& elem : array)
 		{
-			file << array[i] << endl;
+			file << elem << endl;
 		}
 		file.close();
 		cout << "Data written to " << filename << "\n";

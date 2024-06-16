@@ -223,11 +223,14 @@ void makeKnapsack(vector<Star>& stars)
 {
 	int capacity = 800;
 
-	vector<Star> chosenStars = Knapsack(stars, capacity);
+	vector<vector<int>> matrix = generate2DArray(stars, capacity);
+	vector<Star> chosenStars = Knapsack(stars, matrix, capacity);
 
-	string filename = "Output/Knapsack/chosenStars.txt";
+	string matrix_filename = "Output/Knapsack/dpMatrix.csv";
+	string stars_filename = "Output/Knapsack/chosenStars.txt";
 
-	CreateTxtFileChosenStars(chosenStars, filename);
+	CreateCSVFileMatrix(matrix, matrix_filename);
+	CreateTxtFileChosenStars(chosenStars, stars_filename);
 }
 
 void makeAll(vector<long long> StudentID, int numberOfStudents)
@@ -270,6 +273,7 @@ void makeAll(vector<long long> StudentID, int numberOfStudents)
 	#=============================
 	*/
 	makeSelectionSort();
+	cout << endl;
 
 	cout << "Dijkstra: " << endl;
 	vector<int> result = makeDijkstra(routes);

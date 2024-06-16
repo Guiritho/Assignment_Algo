@@ -13,7 +13,7 @@ std::vector<int> ContainsNumber(long long seed)
 		seed/=10;
 		numbers.at(tmp) +=1;
 	}
-	
+
 	std::vector<int> result;
 	for(size_t i = 0; i < numbers.size(); i++)
 	{
@@ -27,9 +27,9 @@ std::vector<int> ContainsNumber(long long seed)
 
 bool Contains(std::vector<int> numbersToAvoid, int number)
 {
-    while (number != 0) 
+	while (number != 0)
 	{
-        int CurrentNumber = number % 10;
+		int CurrentNumber = number % 10;
 		for(size_t i = 0; i < numbersToAvoid.size(); i++)
 		{
 			if (CurrentNumber == numbersToAvoid.at(i)) 
@@ -37,8 +37,8 @@ bool Contains(std::vector<int> numbersToAvoid, int number)
 				return 0;
 			}
 		}
-        number /= 10;
-    }
+		number /= 10;
+	}
 	return 1;
 }
 

@@ -7,7 +7,7 @@
 #include <random>
 #include <string>
 
-void ContainsNumber(long long seed);
+std::vector<int> ContainsNumber(long long seed);
 
 bool Contains(std::vector<int> numbersToAvoid, int number);
 

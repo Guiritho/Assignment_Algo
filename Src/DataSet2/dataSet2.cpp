@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <cmath>
 
+#include "../../Include/DataSet1/dataSet1.hpp"
+
 //Define a structure for representing a star
 struct Star
 {
@@ -14,10 +16,37 @@ struct Star
 	int profit;
 };
 
+std::vector<int> CreateNumbers(long long seed, std::vector<int> NumberToAvoid)
+{
+	std::mt19937 generator(seed);
+	std::uniform_int_distribution<int> distribution(0, 500);
+
+	std::vector<int> result;
+
+	int i = 0;
+	while(i != 100)
+	{
+		int tmp;
+		do
+		{
+			tmp = distribution(generator);
+		}while(!Contains(NumberToAvoid, tmp));
+		
+		result.push_back(tmp);
+		i++;
+	}
+
+	return result;
+}
+
 //Function to generate a dataset of stars and routes
 void generateDatasetWithSeed(std::vector<Star>& stars, std::vector<std::pair<Star, Star>>& routes, long long seed)
 {
-	std::mt19937 gen(seed);
+	std::mt19937 generator(seed);
+
+	std::vector<int> NumberToAvoid = ContainsNumber(seed);
+
+	std::vector<int> randomNumbers = CreateNumbers(seed, NumberToAvoid);
 
 	//Generate 20 stars
 	for(int i = 0; i < 20; i++)
@@ -25,11 +54,13 @@ void generateDatasetWithSeed(std::vector<Star>& stars, std::vector<std::pair<Sta
 		char tmp = i+65;
 		std::string name;
 		name += tmp;
-		int x = std::uniform_int_distribution<int>(0, 500)(gen);
-		int y = std::uniform_int_distribution<int>(0, 500)(gen);
-		int z = std::uniform_int_distribution<int>(0, 500)(gen);
-		int weight = std::uniform_int_distribution<int>(0, 500)(gen);
-		int profit = std::uniform_int_distribution<int>(0, 500)(gen);
+
+		int k = 5*i;
+		int x = randomNumbers[k];
+		int y = randomNumbers[k+1];
+		int z = randomNumbers[k+2];
+		int weight = randomNumbers[k+3];
+		int profit = randomNumbers[k+4];
 		stars.push_back({name, x, y, z, weight, profit});
 	}
 
@@ -41,7 +72,7 @@ void generateDatasetWithSeed(std::vector<Star>& stars, std::vector<std::pair<Sta
 	}
 	for(const auto& star : stars)
 	{
-		std::shuffle(allstar.begin(), allstar.end(), gen);
+		std::shuffle(allstar.begin(), allstar.end(), generator);
 		for(int i = 0; i < 3; ++i)
 		{
 			if(star.name != allstar[i].name)
